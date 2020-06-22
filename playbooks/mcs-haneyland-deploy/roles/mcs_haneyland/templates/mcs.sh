@@ -27,7 +27,8 @@ start() {
   then
     docker run -d -it \
     --rm \
-    -p 25565:25565 \
+    --publish 25565:25565 \
+    --env JAVA_OPTIONS='-Xms{{ java_opts_Xms }} -Xmx{{ java_opts_Xmx }}' \
     --name $CONTAINER_NAME \
     --mount source=$VOLUME_NAME,target=/opt/mcs-haneyland \
     colinthaney/mcs-haneyland:latest

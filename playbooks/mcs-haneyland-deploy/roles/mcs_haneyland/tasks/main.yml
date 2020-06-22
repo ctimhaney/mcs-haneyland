@@ -21,6 +21,12 @@
     dest: "{{ docker_volume_out.volume.Mountpoint }}"
   when: docker_volume_files_stat.stat.exists and docker_volume_out.changed
 
+# TODO why can't docker_image module into comparing image IDs
+- name: "pull {{ docker_image_tag }} image"
+  command: "docker image pull {{ docker_image_tag }}"
+  register: docker_image_pull_out
+  changed_when: '"Image is up to date" not in docker_image_pull_out.stdout'
+
 # TODO need 2.1.0 docker-py to set auto_remove
 # - name: "Create {{ docker_container_name }} container"
 #   docker_container:
@@ -42,3 +48,5 @@
 
 - name: start server
   shell: "/opt/{{ server_name }}.sh start"
+  register: mcs_haneyland_start_out
+  changed_when: '"already started" not in mcs_haneyland_start_out.stdout'
