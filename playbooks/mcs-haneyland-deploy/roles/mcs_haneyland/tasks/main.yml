@@ -1,0 +1,44 @@
+#install docker-py
+- import_tasks: docker_py.yml
+
+# ensure volume exists
+- name: "Ensure docker volume {{ docker_volume_name }} exists"
+  docker_volume:
+    volume_name: "{{ docker_volume_name }}"
+  register: docker_volume_out
+
+# populate volume with any pre-existing server files
+- name: "stat the controller for provided {{ docker_volume_name }} files"
+  stat:
+    path: "files/{{ docker_volume_name }}"
+  delegate_to: localhost
+  register: docker_volume_files_stat
+
+# TODO the controller is not the source of truth!
+- name: copy existing server files when present
+  copy:
+    src: "files/{{ docker_volume_name }}/"
+    dest: "{{ docker_volume_out.volume.Mountpoint }}"
+  when: docker_volume_files_stat.stat.exists and docker_volume_out.changed
+
+# TODO need 2.1.0 docker-py to set auto_remove
+# - name: "Create {{ docker_container_name }} container"
+#   docker_container:
+#     name: "{{ docker_container_name }}"
+#     image: "{{ docker_image_tag }}"
+#     published_ports: "25565:25565"
+#     auto_remove: yes
+#     interactive: yes
+#     tty: yes
+#     mounts:
+#       - source: "{{ docker_volume_name }}"
+#         target: /opt/mcs-haneyland
+
+- name: template management script
+  template:
+    src: mcs.sh
+    dest: "/opt/{{ server_name }}.sh"
+    mode: "0754"
+
+- name: start server
+  shell: "/opt/{{ server_name }}.sh start"

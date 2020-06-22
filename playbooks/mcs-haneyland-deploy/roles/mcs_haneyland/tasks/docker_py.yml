@@ -1,0 +1,8 @@
+- name: install docker-py with yum on CentOS/RHEL 7
+  yum:
+    name: python-docker-py
+  when: "ansible_distribution_major_version == '7'"
+
+# TODO pip and pip3
+# TODO Cent/RHEL 8?
+# TODO from files

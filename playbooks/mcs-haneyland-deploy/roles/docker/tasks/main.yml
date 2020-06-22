@@ -1,0 +1,35 @@
+- block:
+  - name: add the docker repository via yum
+    yum_repository:
+      name: docker-ce-stable
+      description: Docker CE Stable - x86_64
+      baseurl: "{{ docker_repo_url }}"
+      gpgkey: "{{ docker_centos_base_url }}/gpg"
+
+  - name: docker install via yum
+    yum:
+      name: "{{ docker_package_list }}"
+      state: latest
+  when: "ansible_distribution_major_version == '7'"
+
+- block:
+  # TODO keep an eye out for config manager module in ansible base?
+  - name: add the docker repository using dnf
+    command: "dnf config-manager --add-repo={{ docker_repo_url }}"
+
+  - name: manual containerd workaround for rhel8
+    dnf:
+      name: "{{ docker_containerd_url }}"
+      state: present
+
+  - name: docker install via dnf
+    dnf:
+      name: "{{ docker_package_list }}"
+      state: latest
+  when: "ansible_distribution_major_version == '8'"
+
+- name: Start/enable the docker daemon
+  systemd:
+    name: docker
+    state: started
+    enabled: yes

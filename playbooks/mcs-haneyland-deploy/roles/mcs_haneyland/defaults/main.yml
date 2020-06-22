@@ -1,0 +1,5 @@
+server_name: mcs_haneyland_default
+
+docker_volume_name: "{{ server_name }}"
+docker_image_tag: colinthaney/mcs-haneyland:latest
+docker_container_name: "{{ server_name }}"

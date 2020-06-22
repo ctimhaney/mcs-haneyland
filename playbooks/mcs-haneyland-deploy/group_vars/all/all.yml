@@ -1,0 +1,3 @@
+ansible_user: ansible
+# Override the default server name
+# server_name: mcs_haneyland_vanilla

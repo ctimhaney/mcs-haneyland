@@ -1,0 +1,7 @@
+- name: mcs-haneyland server deployment
+  become: yes
+  hosts: all
+  roles:
+    - role: mcs_haneyland
+      tags:
+        - mcs_haneyland
