@@ -1,5 +1,6 @@
-MINECRAFT_SERVER_URL="https://launcher.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149ac3a215f6c636b07/server.jar"
-DOCKER_IMAGE_TAG="colinthaney/mcs-haneyland:latest"
+MINECRAFT_SERVER_URL="https://launcher.mojang.com/v1/objects/7361a24df069a06748844cc7483c35d4abd2d80c/server.jar"
+MINECRAFT_SERVER_VERSION="1.16"
+DOCKER_IMAGE_NAME="colinthaney/mcs-haneyland"
 SCRIPT_DIR=$(dirname $(realpath $0))
 
 test -f environment.sh
@@ -24,4 +25,8 @@ then
   wget $MINECRAFT_SERVER_URL
 fi
 
-docker build -t $DOCKER_IMAGE_TAG $SCRIPT_DIR
+docker build -t $DOCKER_IMAGE_NAME:latest $SCRIPT_DIR
+if [ $? -eq 0 ]
+then
+  docker tag $DOCKER_IMAGE_NAME:latest $DOCKER_IMAGE_NAME:$MINECRAFT_SERVER_VERSION
+fi

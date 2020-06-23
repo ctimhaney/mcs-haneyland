@@ -1,0 +1,2 @@
+- name: restart server
+  shell: /opt/{{ server_name }}.sh restart

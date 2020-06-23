@@ -26,6 +26,8 @@
   command: "docker image pull {{ docker_image_tag }}"
   register: docker_image_pull_out
   changed_when: '"Image is up to date" not in docker_image_pull_out.stdout'
+  notify:
+    - restart server
 
 # TODO need 2.1.0 docker-py to set auto_remove
 # - name: "Create {{ docker_container_name }} container"

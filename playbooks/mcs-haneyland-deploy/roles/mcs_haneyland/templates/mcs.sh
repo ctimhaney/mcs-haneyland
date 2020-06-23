@@ -51,10 +51,9 @@ restart() {
   status > /dev/null 2>&1
   if [ $? -eq 0 ]
   then
-    docker container restart $CONTAINER_NAME
-  else
-    start
+    stop
   fi
+  start
 }
 
 if [ "$1" == "status" ]
