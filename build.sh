@@ -1,5 +1,5 @@
-MINECRAFT_SERVER_URL="https://launcher.mojang.com/v1/objects/7361a24df069a06748844cc7483c35d4abd2d80c/server.jar"
-MINECRAFT_SERVER_VERSION="1.16"
+MINECRAFT_SERVER_URL="https://launcher.mojang.com/v1/objects/a412fd69db1f81db3f511c1463fd304675244077/server.jar"
+MINECRAFT_SERVER_VERSION="1.16.1"
 DOCKER_IMAGE_NAME="colinthaney/mcs-haneyland"
 SCRIPT_DIR=$(dirname $(realpath $0))
 
@@ -18,6 +18,7 @@ then
   exit 1
 fi
 
+#TODO need to compare with above somehow
 test -f server.jar
 
 if [ $? -ne 0 ]
