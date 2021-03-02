@@ -1,5 +1,5 @@
-MINECRAFT_SERVER_URL="https://launcher.mojang.com/v1/objects/35139deedbd5182953cf1caa23835da59ca3d7cd/server.jar"
-MINECRAFT_SERVER_VERSION="1.16.4"
+MINECRAFT_SERVER_URL="https://launcher.mojang.com/v1/objects/1b557e7b033b583cd9f66746b7a9ab1ec1673ced/server.jar"
+MINECRAFT_SERVER_VERSION="1.16.5"
 DOCKER_IMAGE_NAME="colinthaney/mcs-haneyland"
 SCRIPT_DIR=$(dirname $(realpath $0))
 
@@ -18,16 +18,11 @@ then
   exit 1
 fi
 
-#TODO need to compare with above somehow
-test -f server.jar
-
-if [ $? -ne 0 ]
-then
-  wget $MINECRAFT_SERVER_URL
-fi
+rm -f server.jar
+wget $MINECRAFT_SERVER_URL
 
 docker build -t $DOCKER_IMAGE_NAME:latest $SCRIPT_DIR
-if [ $? -eq 0 ]
+  if [ $? -eq 0 ]
 then
   docker tag $DOCKER_IMAGE_NAME:latest $DOCKER_IMAGE_NAME:$MINECRAFT_SERVER_VERSION
 fi
