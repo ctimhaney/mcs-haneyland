@@ -4,5 +4,5 @@ docker_volume_name: "{{ server_name }}"
 docker_image_tag: colinthaney/mcs-haneyland:latest
 docker_container_name: "{{ server_name }}"
 
-java_opts_Xms: "2G"
-java_opts_Xmx: "6G"
+java_opts_Xms: "1G"
+java_opts_Xmx: "2G"
