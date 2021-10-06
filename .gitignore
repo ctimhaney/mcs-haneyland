@@ -1,3 +1,5 @@
 *.jar
 inventories
 passwords.yml
+.terraform*
+ignore.auto.tfvars
