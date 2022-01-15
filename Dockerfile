@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:19-jdk-slim
 RUN mkdir /opt/mcs-haneyland
 COPY server.jar /etc/
 WORKDIR /opt/mcs-haneyland
