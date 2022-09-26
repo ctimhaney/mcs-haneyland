@@ -1,5 +1,5 @@
-MINECRAFT_SERVER_URL="https://launcher.mojang.com/v1/objects/1b557e7b033b583cd9f66746b7a9ab1ec1673ced/server.jar"
-MINECRAFT_SERVER_VERSION="1.16.5"
+MINECRAFT_SERVER_URL="https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar"
+MINECRAFT_SERVER_VERSION="1.18.1"
 DOCKER_IMAGE_NAME="colinthaney/mcs-haneyland"
 SCRIPT_DIR=$(dirname $(realpath $0))
 
